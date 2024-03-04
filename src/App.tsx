@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Suspense} from 'react';
+import {Routes, Route, Link} from 'react-router-dom';
+import {AboutPageAsync} from './pages/AboutPage/AboutPage.async';
+import {MainPageAsync} from './pages/MainPage/MainPage.async';
+import {useTheme} from './theme/useTheme';
+import {classNames} from './helpers/classNames/classNames';
+import './styles/index.scss';
 
-function App() {
+const App = () => {
+  const {theme, toggleTheme} = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classNames('app', {}, [theme])}>
+      <button onClick={toggleTheme}>TOGGLE</button>
+      <Link to={'/'}>Главная</Link>
+      <Link to={'/about'}>О сайте</Link>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path={'/about'} element={<AboutPageAsync/>}/>
+          <Route path={'/'} element={<MainPageAsync/>}/>
+        </Routes>
+      </Suspense>
     </div>
   );
-}
+};
 
 export default App;
