@@ -4,7 +4,6 @@ export const classNames = (cls: string, mods: Mods, additional: string[]): strin
   let modsString = '';
 
   if (Object.keys(mods).length > 0) {
-    console.log(Object.keys(mods));
     modsString = Object.keys(mods)
       .filter((mod) => mods[mod])
       .reduce((accumulator, mod) => {
