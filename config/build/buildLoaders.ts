@@ -8,6 +8,20 @@ interface LoadersOptions {
 export function buildLoaders(options: LoadersOptions): webpack.RuleSetRule[] {
   const {isDev} = options;
 
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['@svgr/webpack']
+  };
+
+  const imageLoader = {
+    test: /\.(png|jpe?g|gif|webp)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+      },
+    ],
+  };
+
   const cssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
@@ -37,6 +51,8 @@ export function buildLoaders(options: LoadersOptions): webpack.RuleSetRule[] {
   };
 
   return [
+    svgLoader,
+    imageLoader,
     typescriptLoader,
     cssLoader
   ]
