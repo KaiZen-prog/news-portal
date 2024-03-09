@@ -1,6 +1,6 @@
 type Mods = Record<string, boolean | string>;
 
-export const classNames = (cls: string, mods: Mods, additional: string[]): string => {
+export const classNames = (cls: string, mods?: Mods, additional?: string[]): string => {
   let modsString = '';
 
   if (Object.keys(mods).length > 0) {
@@ -16,7 +16,7 @@ export const classNames = (cls: string, mods: Mods, additional: string[]): strin
 
   return [
     cls,
-    ...additional,
+    ...additional.filter(Boolean),
     modsString
   ].join(' ');
 }
