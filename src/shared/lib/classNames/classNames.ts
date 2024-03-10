@@ -1,22 +1,12 @@
 type Mods = Record<string, boolean | string>;
 
-export const classNames = (cls: string, mods?: Mods, additional?: string[]): string => {
-  let modsString = '';
-
-  if (Object.keys(mods).length > 0) {
-    modsString = Object.keys(mods)
-      .filter((mod) => mods[mod])
-      .reduce((accumulator, mod) => {
-        if (accumulator !== '') {
-          accumulator += ' ';
-        }
-        return accumulator + mod;
-      });
-  }
-
+export function classNames(cls: string, mods: Mods = {}, additional: string[] = []): string {
   return [
     cls,
     ...additional.filter(Boolean),
-    modsString
-  ].join(' ');
+    ...Object.entries(mods)
+      .filter(([className, value]) => Boolean(value))
+      .map(([className]) => className)
+  ]
+    .join(' ');
 }
